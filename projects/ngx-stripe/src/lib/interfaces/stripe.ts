@@ -4,7 +4,7 @@ import { Elements, ElementsOptions } from './elements';
 import { SourceData, SourceParams, SourceResult } from './sources';
 import {
   BankAccount,
-  BankAccountData,
+  BankAccountData, BillingDetails,
   CardDataOptions,
   CardPaymentData,
   ConfirmIntentData,
@@ -31,6 +31,8 @@ export interface StripeJS {
   handleCardAction(clientSecret: string);
   handleCardPayment(clientSecret: string, el: Element, data: CardPaymentData);
   confirmPaymentIntent(clientSecret: string, el: Element, data: ConfirmIntentData);
+  confirmCardSetup(clientSecret: string, data: {card: Element, billing_details: BillingDetails}, options: any);
+  confirmSepaDebitSetup(clientSecret: string, data: {sepa_debit: Element, billing_details: BillingDetails}, options: any);
   retrievePaymentIntent(clientSecret: string);
   confirmSetupIntent(clientSecret: string, el: Element, data: ConfirmSetupIntentData);
   retrieveSetupIntent(clientSecret: string);

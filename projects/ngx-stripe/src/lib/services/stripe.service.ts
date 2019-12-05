@@ -9,7 +9,7 @@ import { isSourceData, SourceData, SourceParams, SourceResult } from '../interfa
 import { Options, StripeJS, STRIPE_OPTIONS, STRIPE_PUBLISHABLE_KEY } from '../interfaces/stripe';
 import {
   BankAccount,
-  BankAccountData,
+  BankAccountData, BillingDetails,
   CardDataOptions,
   CardPaymentData,
   ConfirmIntentData,
@@ -114,6 +114,22 @@ export class StripeService {
     intentOptions?: ConfirmIntentData | undefined
   ): Observable<SetupIntentResult> {
     return observableFrom(this.stripe.confirmPaymentIntent(clientSecret, element, intentOptions));
+  }
+
+  public confirmCardSetup(
+    clientSecret: string,
+    paymentMethod: {card: Element, billing_details: BillingDetails},
+    options?: any
+  ): Observable<SetupIntentResult> {
+    return observableFrom(this.stripe.confirmCardSetup(clientSecret, paymentMethod, options));
+  }
+
+  public confirmSepaDebitSetup(
+    clientSecret: string,
+    paymentMethod: {sepa_debit: Element, billing_details: BillingDetails},
+    options?: any
+  ): Observable<SetupIntentResult> {
+    return observableFrom(this.stripe.confirmSepaDebitSetup(clientSecret, paymentMethod, options));
   }
 
   public retrievePaymentIntent(clientSecret: string): Observable<PaymentIntentResult> {
